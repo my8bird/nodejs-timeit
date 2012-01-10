@@ -10,6 +10,7 @@
     "mocha":  ">= 0.0.8",
     "should": ">= 0.4.2"
   },
+  "scripts" : { "test" : "node node_modules/mocha/bin/mocha test_timeit.js" },
   "engine": "node >= 0.4.0"
 }
 
