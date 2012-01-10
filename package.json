@@ -1,0 +1,15 @@
+{
+  "name": "timeit",
+  "description": "",
+  "author": "Nathan Landis <my8bird@gmail.com>",
+  "version": "0.1.0",
+  "main": "timeit",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha":  ">= 0.0.8",
+    "should": ">= 0.4.2"
+  },
+  "engine": "node >= 0.4.0"
+}
+
