@@ -1,4 +1,6 @@
-var active        = false,
+var //process = require('process'),
+
+    active        = false,
     howlong_calls = [];
 
 function _startTimeit(howlong_args) {
@@ -15,7 +17,9 @@ function _howlong(iterations, func, done) {
 
    function when_iter_done() {
       if (++i < iterations) {
-         func(when_iter_done);
+         process.nextTick(function() {
+            func(when_iter_done);
+         });
       } else {
          done();
       }
