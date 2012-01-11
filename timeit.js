@@ -18,27 +18,11 @@ function _howlong(iterations, func, done) {
    func(when_iter_done);
 }
 
-exports.setBaseline = function(whendone) {
-   exports.howlong(30000,
-                   // Use the fastest possible function
-                   function(done) {
-                      done();
-                   },
-                   // Store the values for later use and return to caller
-                   function(err, values) {
-                      _baseline = values;
-                      whendone(err, values);
-                   },
-                   true
-                  );
-};
-
-
 function now() {
    return (new Date()).getTime();
 }
 
-exports.howlong = function(iterations, func, done, ignoreWarning) {
+function _howlong(iterations, func, done, ignoreWarning) {
    var starttime = now(),
 
        i = 0,
@@ -83,4 +67,46 @@ exports.howlong = function(iterations, func, done, ignoreWarning) {
 
    // Kick it all off
    _runStep();
+};
+
+
+exports.setBaseline = function(whendone) {
+   _howlong(30000,
+            // Use the fastest possible function
+            function(done) {
+               done();
+            },
+            // Store the values for later use and return to caller
+            function(err, values) {
+               _baseline = values;
+               whendone(err, values);
+            },
+            true
+           );
+};
+
+exports.howlong = function(iterations, funcs, done) {
+   var i = 0, results = [];
+
+   if (! Array.isArray(funcs) ) {
+      _howlong(iterations, funcs, done);
+      return;
+   }
+
+   function _whendone(err, values) {
+      results.push(values);
+
+      if (++i === funcs.length) {
+         done(null, results);
+      } else {
+         _runNext();
+      }
+   }
+
+   function _runNext() {
+      var func = funcs[i];
+      _howlong(iterations, func, _whendone);
+   }
+
+   _runNext();
 };

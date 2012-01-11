@@ -17,11 +17,8 @@ function use_plus(done) {
 }
 
 timeit.setBaseline(function(err, baseline_values) { // Get a baseline to compare against
-   timeit.howlong(iterations, use_concat, function(err, concat_values) {
-      timeit.howlong(iterations, use_plus, function(err, plus_values) {
-         // Show the results
-         console.log('Concat speed', concat_values);
-         console.log('Using Plus speed', plus_values);
-      });
+   timeit.howlong(iterations, [use_concat, use_plus], function(err, results) {
+      console.log('Concat speed', results[0]);
+      console.log('Using Plus speed', results[1]);
    });
 });

@@ -49,5 +49,26 @@ describe('Timing functions', function() {
          done();
       });
    });
+
+   it('should handle a list of funcs to test', function(done) {
+      timeit.howlong(3000,
+                     [
+                        function(done) {
+                           done();
+                        },
+                        function(done) {
+                           done();
+                        }
+                     ],
+                     function(err, results) {
+                        assert.ok(results[0].total_runtime > 0);
+                        assert.ok(results[1].total_runtime > 0);
+                        assert.howlongValuesSet(results[0]);
+                        assert.howlongValuesSet(results[1]);
+                        done();
+                     }
+                    );
+   });
+
 });
 
