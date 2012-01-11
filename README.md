@@ -21,10 +21,9 @@ Test one method
         done();
     }
 
-    timeit.setBaseline(function(err, baseline_values) { // Get a baseline to compare against
-        timeit.howlong(iterations, use_concat, function(err, results) {
-            console.log('Concat speed', results);
-        });
+    timeit.howlong(iterations, use_concat, function(err, results) {
+       console.log(Baseline',      results[0]);
+       console.log('Concat speed', results[1]);
     });
 
 
