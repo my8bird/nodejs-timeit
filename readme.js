@@ -1,3 +1,6 @@
+// File that is copied into README.md to show example code
+// The output of running this file is the also the example output
+
 var timeit = require('./timeit'),
     iterations = 30000;
 
