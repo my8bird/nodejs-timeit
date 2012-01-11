@@ -33,9 +33,14 @@ exports.setBaseline = function(whendone) {
                   );
 };
 
+
+function now() {
+   return (new Date()).getTime();
+}
+
 exports.howlong = function(iterations, func, done, ignoreWarning) {
-   var starttime = new Date(),
-       emitter   = new EventEmitter(),
+   var starttime = now(),
+
        i = 0,
        step_values = [];
 
@@ -43,18 +48,8 @@ exports.howlong = function(iterations, func, done, ignoreWarning) {
       console.log('Run setBaseline before howlong to get more accurate results.');
    }
 
-   function _runStep() {
-      process.nextTick(function() {
-         var step_start = new Date();
-         func(function() {
-            step_values.push(new Date() - step_start);
-            emitter.emit('step_done');
-         });
-      });
-   }
-
    function _calcAndReturn() {
-      var runtime = new Date() - starttime,
+      var runtime = now() - starttime,
           total = step_values.reduce(function(value, item) { return value + item; }),
           average = total / iterations,
           results = {
@@ -69,16 +64,22 @@ exports.howlong = function(iterations, func, done, ignoreWarning) {
          results.average_step_off_baseline = average - _baseline.average_step_runtime;
       }
 
-      done(null, results);
+      process.nextTick(function(){ done(null, results); });
    }
 
-   emitter.on('step_done', function() {
+   function _runStep() {
       if (++i > iterations) {
-         _calcAndReturn();
-      } else {
-         _runStep();
+         return _calcAndReturn();
       }
-   });
+
+      process.nextTick(function() {
+         var step_start = now();
+         func(function() {
+            step_values.push(now() - step_start);
+            _runStep();
+         });
+      });
+   }
 
    // Kick it all off
    _runStep();
