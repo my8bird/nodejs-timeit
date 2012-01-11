@@ -46,29 +46,32 @@ Compare to approaches to see which is faster
        done();
     }
 
-    timeit.setBaseline(function(err, baseline_values) { // Get a baseline to compare against
-        timeit.howlong(iterations, [use_concat, use_plus], function(err, results) {
-            console.log('Concat speed', results[0]);
-            console.log('Using Plus speed', results[1]);
-        });
+    timeit.howlong(iterations, [use_concat, use_plus], function(err, results) {
+       console.log(Baseline,           results[0]);
+       console.log('Concat speed',     results[1]);
+       console.log('Using Plus speed', results[1]);
     });
 
 
 Example Compare Output
 =============
 
-    Concat speed { total_runtime: 146,
-      total_step_runtime: 38,
-      average_step_runtime: 0.0012666666666666666,
-      total_off_baseline: 5,
-      total_step_off_baseline: 11,
-      average_step_off_baseline: 0.0003666666666666666 }
-    Using Plus speed { total_runtime: 135,
-      total_step_runtime: 29,
-      average_step_runtime: 0.0009666666666666667,
-      total_off_baseline: -6,
-      total_step_off_baseline: 2,
-      average_step_off_baseline: 0.0000666666666666667 }
+    Baseline { total_runtime: 151,
+      total_step_runtime: 28,
+      average_step_runtime: 0.0009333333333333333 }
+    Concat speed { total_runtime: 149,
+      total_step_runtime: 36,
+      average_step_runtime: 0.0012,
+      total_off_baseline: -2,
+      total_step_off_baseline: 8,
+      average_step_off_baseline: 0.00026666666666666657 }
+    Using Plus speed { total_runtime: 141,
+      total_step_runtime: 44,
+      average_step_runtime: 0.0014666666666666667,
+      total_off_baseline: -10,
+      total_step_off_baseline: 16,
+      average_step_off_baseline: 0.0005333333333333334 }
+
 
 TODO
 ====

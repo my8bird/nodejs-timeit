@@ -1,3 +1,5 @@
+/*global setTimeout: false */
+
 var timeit = require('./timeit'),
     assert = require('assert');
 
@@ -12,18 +14,14 @@ assert.howlongValuesSet = function(values) {
 
 
 describe('Timing functions', function() {
-   before(function(done) {
-      timeit.setBaseline(done);
-   });
-
    it('should run the function the correct number of times.', function(done) {
       timeit.howlong(30,
                      function(done) {
                         setTimeout(function(){ done(); }, 10);
                      },
-                     function(err, values) {
-                        assert.ok(values.total_runtime > 0);
-                        assert.howlongValuesSet(values);
+                     function(err, results) {
+                        assert.ok(results[1].total_runtime > 0);
+                        assert.howlongValuesSet(results[1]);
                         done();
                      }
                     );
@@ -34,20 +32,12 @@ describe('Timing functions', function() {
                      function(done) {
                         done();
                      },
-                     function(err, values) {
-                        assert.ok(values.total_runtime > 0);
-                        assert.howlongValuesSet(values);
+                     function(err, results) {
+                        assert.ok(results[1].total_runtime > 0);
+                        assert.howlongValuesSet(results[1]);
                         done();
                      }
                     );
-   });
-
-   it('should produce a baseline when requested', function(done) {
-      timeit.setBaseline(function(err, values) {
-         assert.ok(values.total_runtime > 0);
-         assert.howlongValuesSet(values);
-         done();
-      });
    });
 
    it('should handle a list of funcs to test', function(done) {

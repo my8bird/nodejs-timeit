@@ -28,7 +28,7 @@ function _howlong(iterations, func, done, ignoreWarning) {
        i = 0,
        step_values = [];
 
-   if (! _baseline && ignoreWarning === undefined ) {
+   if (! _baseline && !ignoreWarning) {
       console.log('Run setBaseline before howlong to get more accurate results.');
    }
 
@@ -70,31 +70,26 @@ function _howlong(iterations, func, done, ignoreWarning) {
 };
 
 
-exports.setBaseline = function(whendone) {
-   _howlong(30000,
-            // Use the fastest possible function
-            function(done) {
-               done();
-            },
-            // Store the values for later use and return to caller
-            function(err, values) {
-               _baseline = values;
-               whendone(err, values);
-            },
-            true
-           );
-};
+function _baseline_func(done) {
+   done();
+}
+
 
 exports.howlong = function(iterations, funcs, done) {
    var i = 0, results = [];
 
    if (! Array.isArray(funcs) ) {
-      _howlong(iterations, funcs, done);
-      return;
+      funcs = [_baseline_func, funcs];
+   } else {
+      funcs.splice(0, 0, _baseline_func);
    }
 
    function _whendone(err, values) {
       results.push(values);
+
+      if (i === 0) { // Baseline run
+         _baseline = values;
+      }
 
       if (++i === funcs.length) {
          done(null, results);
@@ -104,8 +99,7 @@ exports.howlong = function(iterations, funcs, done) {
    }
 
    function _runNext() {
-      var func = funcs[i];
-      _howlong(iterations, func, _whendone);
+      _howlong(iterations, funcs[i], _whendone, i === 0);
    }
 
    _runNext();
