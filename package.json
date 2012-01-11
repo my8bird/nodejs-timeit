@@ -1,6 +1,10 @@
 {
   "name": "timeit",
-  "description": "",
+  "description": "Provides for running a function multiple times and recording how long it took.  Useful for determining if one approach is faster then another.",
+  "homepage":"https://github.com/my8bird/node-timeit",
+  "bugs":{
+      "url":"https://github.com/my8bird/node-timeit/issues"
+   },
   "author": "Nathan Landis <my8bird@gmail.com>",
   "version": "0.1.0",
   "main": "timeit",
@@ -13,4 +17,3 @@
   "scripts" : { "test" : "node node_modules/mocha/bin/mocha test_timeit.js" },
   "engine": "node >= 0.4.0"
 }
-
