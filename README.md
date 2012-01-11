@@ -10,7 +10,7 @@ Usage
 =====
 
 Test one method
-===============
+---------------
 
     var timeit = require('./timeit'),
         iterations = 30000;
