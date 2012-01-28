@@ -3,9 +3,7 @@ Provide a simple interface for testing how fast different methods are.
 Installation
 ============
     npm install timeit
-    
     or
-    
     git clone git@github.com:my8bird/nodejs-timeit.git
     npm install
 
