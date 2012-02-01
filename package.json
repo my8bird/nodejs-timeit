@@ -8,6 +8,11 @@
   "author": "Nathan Landis <my8bird@gmail.com>",
   "version": "0.1.0",
   "main": "timeit",
+
+   "scripts": {
+      "test": "./node_modules/mocha/bin/mocha test_timeit.js"
+   },
+
   "dependencies": {
   },
   "devDependencies": {

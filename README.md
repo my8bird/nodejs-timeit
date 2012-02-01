@@ -1,3 +1,6 @@
+[![Build Status](https://secure.travis-ci.org/my8bird/nodejs-timeit.png?branch=master)](http://travis-ci.org/my8bird/nodejs-timeit)
+
+
 Provide a simple interface for testing how fast different methods are.
 
 Installation
