@@ -16,7 +16,7 @@ Usage
 
 Test one method
 ---------------
-
+```javascript
     var timeit = require('./timeit'),
         iterations = 30000;
 
@@ -30,11 +30,11 @@ Test one method
        console.log(Baseline',      results[0]);
        console.log('Concat speed', results[1]);
     });
-
+```
 
 Compare to approaches to see which is faster
 --------------------------------------------
-
+```javascript
     var timeit = require('./timeit'),
         iterations = 30000;
 
@@ -55,7 +55,7 @@ Compare to approaches to see which is faster
        console.log('Concat speed',     results[1]);
        console.log('Using Plus speed', results[1]);
     });
-
+```
 
 Example Compare Output
 =============
