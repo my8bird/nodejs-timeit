@@ -16,46 +16,46 @@ Usage
 
 Test one method
 ---------------
+```javascript
+var timeit = require('./timeit'),
+    iterations = 30000;
 
-    var timeit = require('./timeit'),
-        iterations = 30000;
+function use_concat(done) {
+    var a = 'a string',
+        b = a.concat('stuck together');
+    done();
+}
 
-    function use_concat(done) {
-        var a = 'a string',
-            b = a.concat('stuck together');
-        done();
-    }
-
-    timeit.howlong(iterations, use_concat, function(err, results) {
-       console.log(Baseline',      results[0]);
-       console.log('Concat speed', results[1]);
-    });
-
+timeit.howlong(iterations, use_concat, function(err, results) {
+   console.log(Baseline',      results[0]);
+   console.log('Concat speed', results[1]);
+});
+```
 
 Compare to approaches to see which is faster
 --------------------------------------------
+```javascript
+var timeit = require('./timeit'),
+    iterations = 30000;
 
-    var timeit = require('./timeit'),
-        iterations = 30000;
+function use_concat(done) {
+    var a = 'a string',
+        b = a.concat('stuck together');
+    done();
+}
 
-    function use_concat(done) {
-        var a = 'a string',
-            b = a.concat('stuck together');
-        done();
-    }
+function use_plus(done) {
+   var a = 'a string',
+       b = a + 'stuck together';
+   done();
+}
 
-    function use_plus(done) {
-       var a = 'a string',
-           b = a + 'stuck together';
-       done();
-    }
-
-    timeit.howlong(iterations, [use_concat, use_plus], function(err, results) {
-       console.log(Baseline,           results[0]);
-       console.log('Concat speed',     results[1]);
-       console.log('Using Plus speed', results[1]);
-    });
-
+timeit.howlong(iterations, [use_concat, use_plus], function(err, results) {
+   console.log(Baseline,           results[0]);
+   console.log('Concat speed',     results[1]);
+   console.log('Using Plus speed', results[1]);
+});
+```
 
 Example Compare Output
 =============
