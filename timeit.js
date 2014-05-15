@@ -2,12 +2,23 @@ var EventEmitter = require('events').EventEmitter,
     _baseline = null;
 
 
+// Allow running on all versions of Node
+var breakRecursion,
+    matches = /(\d+)\.(\d+).*/.exec(process.versions.node);
+if (matches && matches[1] === 0 && matches[2] <= 6) {
+ breakRecursion = process.nextTick;
+}
+else {
+   breakRecursion = setImmediate;
+}
+
+
 function _howlong(iterations, func, done) {
    var i = 0;
 
    function when_iter_done() {
       if (++i < iterations) {
-         process.nextTick(function() {
+         breakRecursion(function() {
             func(when_iter_done);
          });
       } else {
@@ -48,7 +59,7 @@ function _howlong(iterations, func, done, ignoreWarning) {
          results.average_step_off_baseline = average - _baseline.average_step_runtime;
       }
 
-      process.nextTick(function(){ done(null, results); });
+      breakRecursion(function(){ done(null, results); });
    }
 
    function _runStep() {
@@ -56,7 +67,7 @@ function _howlong(iterations, func, done, ignoreWarning) {
          return _calcAndReturn();
       }
 
-      process.nextTick(function() {
+      breakRecursion(function() {
          var step_start = now();
          func(function() {
             step_values.push(now() - step_start);
