@@ -1,17 +1,9 @@
 var EventEmitter = require('events').EventEmitter,
-    _baseline = null;
+    _baseline    = null;
 
 
 // Allow running on all versions of Node
-var breakRecursion,
-    matches = /(\d+)\.(\d+).*/.exec(process.versions.node);
-if (matches && matches[1] === 0 && matches[2] <= 6) {
- breakRecursion = process.nextTick;
-}
-else {
-   breakRecursion = setImmediate;
-}
-
+var breakRecursion = global.setImmediate || process.nextTick;
 
 function _howlong(iterations, func, done) {
    var i = 0;
