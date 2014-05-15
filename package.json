@@ -6,7 +6,7 @@
       "url":"https://github.com/my8bird/nodejs-timeit/issues"
    },
   "author": "Nathan Landis <my8bird@gmail.com>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "timeit",
 
    "scripts": {
