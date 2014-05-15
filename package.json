@@ -1,9 +1,9 @@
 {
   "name": "timeit",
   "description": "Provides for running a function multiple times and recording how long it took.  Useful for determining if one approach is faster then another.",
-  "homepage":"https://github.com/my8bird/node-timeit",
+  "homepage":"https://github.com/my8bird/nodejs-timeit",
   "bugs":{
-      "url":"https://github.com/my8bird/node-timeit/issues"
+      "url":"https://github.com/my8bird/nodejs-timeit/issues"
    },
   "author": "Nathan Landis <my8bird@gmail.com>",
   "version": "0.1.0",
