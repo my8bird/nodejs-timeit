@@ -27,7 +27,7 @@ function use_concat(done) {
 }
 
 timeit.howlong(iterations, use_concat, function(err, results) {
-   console.log(Baseline',      results[0]);
+   console.log('Baseline',      results[0]);
    console.log('Concat speed', results[1]);
 });
 ```
