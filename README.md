@@ -53,7 +53,7 @@ function use_plus(done) {
 timeit.howlong(iterations, [use_concat, use_plus], function(err, results) {
    console.log('Baseline',         results[0]);
    console.log('Concat speed',     results[1]);
-   console.log('Using Plus speed', results[1]);
+   console.log('Using Plus speed', results[2]);
 });
 ```
 
